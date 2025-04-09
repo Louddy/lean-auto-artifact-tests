@@ -1,7 +1,6 @@
 #!bash
 # This script is only compatible with Lean v4.15.0
 # This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
-# The number of processes chosen by this script is compatible with Amazon EC2 c5ad.16xlarge
 
 cd lean-hammertest
 source $HOME/.elan/env
