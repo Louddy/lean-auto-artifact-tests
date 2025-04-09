@@ -1,12 +1,14 @@
-#!bash
+#!/bin/bash
 # This script is only compatible with Lean v4.15.0
 # This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
 
 decim_re='^[1-9][0-9]*$'
-if [ "$#" -ne 1 ] || ! [[ $1 =~ $decim_re ]]; then
+if [ "$#" -ne 2 ] || ! [[ $1 =~ $decim_re ]]; then
   echo "Illegal number of parameters"
-  echo "Usage: ./<script_name> <number_of_processors>"
+  echo "Usage: ./<script_name> <number_of_processors> <path_to_hammertest_repo>"
 fi
+
+cd $2
 
 eval $(opam env)
 
