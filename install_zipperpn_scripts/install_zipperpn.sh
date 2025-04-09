@@ -1,7 +1,7 @@
 #!bash
 
 # Install zipperposition
-printf "\n" | bash -c "sh <(cat /home/lean_hammertest_lw/install_opam.sh)"
+printf "\n" | bash -c "sh <(cat /home/install_zipperpn_scripts/install_opam.sh)"
 echo "set timeout -1
 spawn opam init
 expect {

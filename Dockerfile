@@ -1,7 +1,5 @@
 FROM ubuntu:22.04
 
-COPY lean_hammertest_lw /home/lean_hammertest_lw
-
 ENV TZ=America/Los_Angeles
 SHELL ["/bin/bash", "-c"]
 
@@ -28,7 +26,8 @@ RUN rm cvc5-Linux-x86_64-static.zip
 RUN cp /home/cvc5-Linux-x86_64-static/bin/cvc5 /usr/bin/cvc5
 
 # Install zipperposition
-RUN bash /home/lean_hammertest_lw/install_zipperpn.sh
+COPY install_zipperpn_scripts /home/install_zipperpn_scripts
+RUN bash /home/install_zipperpn_scripts/install_zipperpn.sh
 
 # Install Lean and Lean libraries
 RUN wget https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh
@@ -40,4 +39,8 @@ RUN git clone https://github.com/leanprover-community/duper
 RUN cd duper && git checkout 9cd4d4d1d71034d456d06aef2e4d07c911b88c65; cd ..
 
 # Build lean_hammertest_lw (most part of it would be building Mathlib)
+COPY lean_hammertest_lw /home/lean_hammertest_lw
 RUN source /root/.elan/env && cd /home/lean_hammertest_lw && lake build
+
+# Copy Test Scripts
+COPY test_scripts /home/test_scripts

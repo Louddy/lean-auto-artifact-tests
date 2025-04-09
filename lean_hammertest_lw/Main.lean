@@ -1,5 +1,5 @@
-import LeanHammertestLw
 import Mathlib
+import Hammertest
 import Hammertest.DuperInterface
 import Hammertest.DuperInterfaceRebindRaw
 
