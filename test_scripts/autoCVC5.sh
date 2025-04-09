@@ -2,6 +2,12 @@
 # This script is only compatible with Lean v4.15.0
 # This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
 
+decim_re='^[1-9][0-9]*$'
+if [ "$#" -ne 1 ] || ! [[ $1 =~ $decim_re ]]; then
+  echo "Illegal number of parameters"
+  echo "Usage: ./<script_name> <number_of_processors>"
+fi
+
 echo "import Mathlib
 import Auto.EvaluateAuto.TestTactics
 import Hammertest.DuperInterfaceRebindRaw
@@ -65,4 +71,4 @@ set_option auto.testTactics.rebindNativeModuleName \"Hammertest.DuperInterfaceRe
       (.useAuto true (.smt .cvc5) 10, \`\`Matroid.map_basis_iff),
       (.useAuto true (.smt .cvc5) 10, \`\`Matroid.restrictSubtype_ground_base_iff),
       (.useAuto true (.smt .cvc5) 10, \`\`Matroid.restrictSubtype_ground_basis_iff)
-    ], nprocs := 32 }" | lake env lean --stdin
+    ], nprocs := $1 }" | lake env lean --stdin
