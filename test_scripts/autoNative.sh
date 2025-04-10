@@ -1,5 +1,4 @@
 #!/bin/bash
-# This script is only compatible with Lean v4.15.0
 # This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
 
 decim_re='^[1-9][0-9]*$'
@@ -9,6 +8,8 @@ if [ "$#" -ne 2 ] || ! [[ $1 =~ $decim_re ]]; then
 fi
 
 cd $2
+
+source ~/.elan/env
 
 echo "import Mathlib
 import Auto.EvaluateAuto.TestTactics

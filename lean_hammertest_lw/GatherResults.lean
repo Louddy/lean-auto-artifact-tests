@@ -17,22 +17,22 @@ def readETMHTEvaluateFilesCached (path : String) : CoreM (Array (Name × Array (
 -- Shouldn't be used in the main evaluation section
 def autoNative (path : String) : CoreM (Array (Name × Result × Nat × Nat)) := readEATAResult
     { solverConfig := .native, batchSize := 512
-      resultFolder := path + "/EvalAuto", nonterminates := #[], nprocs := 4 }
+      resultFolder := path ++ "/EvalAuto", nonterminates := #[], nprocs := 4 }
 
 def tactics (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) :=
-  readETMHTEvaluateFilesCached (path + "/EvalTactics")
+  readETMHTEvaluateFilesCached (path ++ "/EvalTactics")
 
-def autoNativeAsTactic : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
-  readETMHTEvaluateFilesCached (path + "/EvalAutoNativeAsTactic")
+def autoNativeAsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
+  readETMHTEvaluateFilesCached (path ++ "/EvalAutoNativeAsTactic")
 
-def autoZ3AsTactic : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
-  readETMHTEvaluateFilesCached (path + "/EvalAutoZ3AsTactic")
+def autoZ3AsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
+  readETMHTEvaluateFilesCached (path ++ "/EvalAutoZ3AsTactic")
 
-def autoCVC5AsTactic : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
-  readETMHTEvaluateFilesCached (path + "/EvalAutoCVC5AsTactic")
+def autoCVC5AsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
+  readETMHTEvaluateFilesCached (path ++ "/EvalAutoCVC5AsTactic")
 
-def autoZipperpnAsTactic : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
-  readETMHTEvaluateFilesCached (path + "/EvalAutoZipperpnAsTactic")
+def autoZipperpnAsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
+  readETMHTEvaluateFilesCached (path ++ "/EvalAutoZipperpnAsTactic")
 
 /--
   Order of tactics:

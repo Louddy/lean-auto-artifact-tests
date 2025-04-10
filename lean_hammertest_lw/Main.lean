@@ -1,4 +1,5 @@
 import Mathlib
+import Auto
 import Hammertest
 import Hammertest.DuperInterface
 import Hammertest.DuperInterfaceRebindRaw
