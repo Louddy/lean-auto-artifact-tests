@@ -96,6 +96,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Illegal number of parameters")
         print("Usage: python3 <script_name> <path_to_result_file>")
+        exit()
     path_to_result_file = sys.argv[1]
     default_plot(path_to_result_file)
     default_analysis(path_to_result_file)
