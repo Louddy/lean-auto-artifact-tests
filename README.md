@@ -1,3 +1,25 @@
+# TODO
+Scripts to run the experiments (inside the docker container):
+```
+source /root/.elan/env
+printf "Experiment Starts: %(%s)T\n"
+/home/test_scripts/autoCVC5.sh 32 /home/lean_hammertest_lw
+printf "autoCVC5.sh done: %(%s)T\n"
+/home/test_scripts/autoNative.sh 32 /home/lean_hammertest_lw
+printf "autoNative.sh done: %(%s)T\n"
+/home/test_scripts/autoZ3.sh 32 /home/lean_hammertest_lw
+printf "autoZ3.sh done: %(%s)T\n"
+/home/test_scripts/autoZipperpn.sh 32 /home/lean_hammertest_lw
+printf "autoZipperpn.sh done: %(%s)T\n"
+/home/test_scripts/tactics.sh 32 /home/lean_hammertest_lw
+printf "tactics.sh done: %(%s)T\n"
+cd /home/lean_hammertest_lw && lake env lean GatherResults.lean
+printf "GatherResults.lean done: %(%s)T\n"
+source /home/result-analysis-env/bin/activate
+cd /home/result_analysis && python3 cumultime.py /home/lean_hammertest_lw/allResults
+printf "Result Analysis done: %(%s)T\n"
+```
+
 # Artifact for Lean-auto
 
 Include the title of the submitted paper and its submission number. Indicate which badges you claim for your artifact.
