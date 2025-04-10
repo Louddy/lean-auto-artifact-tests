@@ -1,8 +1,6 @@
 import Lean
 import Mathlib
-import Auto.EvaluateAuto.TestAuto
-import Auto.EvaluateAuto.TestTactics
-import Auto.EvaluateAuto.TestTranslation
+import Auto
 
 open Lean Meta EvalAuto
 

@@ -34,7 +34,7 @@ RUN wget https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
   && bash elan-init.sh -y \
   && rm elan-init.sh \
   && git clone https://github.com/leanprover-community/lean-auto \
-  && cd lean-auto && git checkout f1ed94c00377128e53fed4255985ebfa88fd5c48 && cd .. \
+  && cd lean-auto && git checkout d7d55ccc6148d2c581beb42f9f7125a8a4a5e720 && cd .. \
   && git clone https://github.com/leanprover-community/duper \
   && cd duper && git checkout 9cd4d4d1d71034d456d06aef2e4d07c911b88c65 && cd ..
 
