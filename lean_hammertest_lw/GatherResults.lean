@@ -14,11 +14,6 @@ def readETMHTEvaluateFilesCached (path : String) : CoreM (Array (Name × Array (
         nprocs := Inhabited.default }
   readEvalTacticsAtModuleResult (path ++ "/gatheredResult")
 
--- Shouldn't be used in the main evaluation section
-def autoNative (path : String) : CoreM (Array (Name × Result × Nat × Nat)) := readEATAResult
-    { solverConfig := .native, batchSize := 512
-      resultFolder := path ++ "/EvalAuto", nonterminates := #[], nprocs := 4 }
-
 def tactics (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) :=
   readETMHTEvaluateFilesCached (path ++ "/EvalTactics")
 

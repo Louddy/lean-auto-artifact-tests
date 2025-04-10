@@ -138,5 +138,3 @@ def default_analysis(fname : str):
 
     vbs = default_categorical_virtual_bests_from_tactic_major((names, results))
     analyze_tactic_major_filtered((names, vbs))
-
-default_analysis(".\\allResults")

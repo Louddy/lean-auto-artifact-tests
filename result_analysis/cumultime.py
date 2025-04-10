@@ -3,6 +3,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
+import sys
 from parse_all_result import *
 
 def cumul_solving_time(df : dict[any, list], name: str, cumul : bool):
@@ -91,4 +92,10 @@ def default_plot(fname):
     cumul_solving_time(df, "non-cumulative", cumul=False)
     cumul_solving_time(df, "cumulative", cumul=True)
 
-default_plot(".\\allResults")
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Illegal number of parameters")
+        print("Usage: python3 <script_name> <path_to_result_file>")
+    path_to_result_file = sys.argv[1]
+    default_plot(path_to_result_file)
+    default_analysis(path_to_result_file)
