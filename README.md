@@ -1,5 +1,14 @@
 # TODO
-Scripts to run the experiments (inside the docker container):
+Scripts to run the experiments:  
+Start the container with
+```
+docker run --init -d indprinciples/lean-auto-artifact tail -f /dev/null
+```
+Note that the `--init` flag makes sure that zombies are properly reaped. Attach to the container with
+```
+sudo docker exec -it <container_name> bash
+```
+Inside the container:
 ```
 source /root/.elan/env
 printf "Experiment Starts: %(%s)T\n"
