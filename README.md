@@ -10,23 +10,7 @@ sudo docker exec -it <container_name> bash
 ```
 Inside the container:
 ```
-source /root/.elan/env
-printf "Experiment Starts: %(%s)T\n"
-/home/test_scripts/autoCVC5.sh 32 /home/lean_hammertest_lw
-printf "autoCVC5.sh done: %(%s)T\n"
-/home/test_scripts/autoNative.sh 32 /home/lean_hammertest_lw
-printf "autoNative.sh done: %(%s)T\n"
-/home/test_scripts/autoZ3.sh 32 /home/lean_hammertest_lw
-printf "autoZ3.sh done: %(%s)T\n"
-/home/test_scripts/autoZipperpn.sh 32 /home/lean_hammertest_lw
-printf "autoZipperpn.sh done: %(%s)T\n"
-/home/test_scripts/tactics.sh 32 /home/lean_hammertest_lw
-printf "tactics.sh done: %(%s)T\n"
-cd /home/lean_hammertest_lw && lake env lean GatherResults.lean
-printf "GatherResults.lean done: %(%s)T\n"
-source /home/result-analysis-env/bin/activate
-cd /home/result_analysis && python3 cumultime.py /home/lean_hammertest_lw/allResults
-printf "Result Analysis done: %(%s)T\n"
+/home/test_scripts/all_experiments.sh 32 /home/lean_hammertest_lw
 ```
 
 # Artifact for Lean-auto
