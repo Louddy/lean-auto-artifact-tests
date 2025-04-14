@@ -1,4 +1,6 @@
-**TODO:** License
+**TODO:**
+* License
+* Create a DOI for the docker image
 
 # Artifact for Lean-auto
 
