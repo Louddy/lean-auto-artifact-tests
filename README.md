@@ -1,98 +1,119 @@
-# TODO
-Scripts to run the experiments:  
-Start the container with
-```
-docker run --init -d indprinciples/lean-auto-artifact tail -f /dev/null
-```
-Note that the `--init` flag makes sure that zombies are properly reaped. Attach to the container with
-```
-sudo docker exec -it <container_name> bash
-```
-Inside the container:
-```
-/home/test_scripts/all_experiments.sh 32 /home/lean_hammertest_lw
-```
+**TODO:** License
 
 # Artifact for Lean-auto
 
-Include the title of the submitted paper and its submission number. Indicate which badges you claim for your artifact.
+#133 Lean-auto: An Interface between Lean 4 and Automated Theorem Provers
 
+**TODO**: Indicate which badges you claim for your artifact.
 * If you claim an available badge, it is sufficient to upload your Docker or VM image to a repository that provides a DOI (e.g. Zenodo, figshare, or Dryad) and use this DOI link in your artifact submission.
 * If you claim a functional or reusable badge, provide justification in the corresponding sections below. Note that an artifact that claims a reusable badge must also fulfil the criteria for the functional badge, in which case only the reusable badge will be awarded.
 
 
 ## Artifact Requirements
 
-List resource and time requirements for accessing your artifact.
+The experiments consist of six tasks. Task (a)-(e) runs different types of tools on our benchmark, which consists of 149142 Mathlib4 theorems.
+* a. Evaluating lean-auto + CVC5
+* b. Evaluating lean-auto + Duper(Native)
+* c. Evaluating lean-auto + Z3
+* d. Evaluating lean-auto + Zipperposition
+* e. Evaluating existing tactics (rfl, simp_all, aesop)
+* f. Analyze experimental results
 
-* Precisely state the resource requirements (RAM, number of cores, CPU frequency, etc.) needed to evaluate your artifact.
-* Provide for each task/step of the evaluation (an estimate of) how long it will take to perform it.
-* If some tasks require a large amount of resources (hardware or time) indicate (and describe in subsequent sections) the possibility to replicate a subset of the results with reasonably modest resource and time limits.
-* Describe the machine used and the runtime achieved during your evaluation.
+The experiment script allows you to specify the number of Lean4 processes to run in parallel during the evaluation. If you want to run the experiment script with $k$ parallel Lean processes, you will need $4k$ GB of RAM.  
+In our evaluation, the experiment is run on Amazon EC2 instance type `c5ad.16xlarge` with 64 cores, 128 GB RAM and clock frequency 3.3 GHz, using 32 parallel Lean4 processes. Here are the approximate times that each task took:
+* a. 4 hours
+* b. 5 hours
+* c. 3.5 hours
+* d. 4 hours
+* e. 2 hours
+* f. 2.5 minutes
 
+It is possible to replicate a subset of the results with most resource and time limits, see the **Getting Started** section.
 
 ## Structure and Content
 
-List the contents (or its most relevant components) of your artifact.
+The most relevant components of the artifact are inside the `/home` directory of the docker container
+* `lean-auto`: The cloned github repo of Lean-auto
+* `lean_hammertest_lw`: Lean4 code providing support for evaluating `lean-auto` and other tools on Mathlib4
+* `test_scripts`: Bash scripts used to evaluate `lean-auto` and other tools on Mathlib4
+* `result_analysis`: Python scripts used to analyze results produced by `test_scripts/all_experiments.sh`
+* Dependencies
+  * `cvc5`
+  * `z3`
+  * Scripts used to install `zipperposition`
+  * Cloned github repo of `duper` (a Lean4 repo imported by `lean-auto`)
+
+  `cvc5`, `z3` and `zipperposition` are already installed in the docker container. Note that in `bash`, you need to run `eval $(opam env)` before you can access `zipperposition`
 
 
 ## Getting Started
 
-Describe how to execute and briefly test your artifact in order to complete the smoke-test phase of the evaluation. Below is an example for Docker images.
-
-
-### Getting Started (example)
-
-First, load the docker image `docker-tool-image` from the .tar archive (docker may require `sudo` root privileges):
-
-```bash
-docker load < docker-tool-image.tar
+First, download the docker image `indprinciples/lean-auto-artifact` (you might need `sudo` for `docker`):
+```
+docker pull indprinciples/lean-auto-artifact
 ```
 
-Upon loading the image, you can run the container with:
-
-```bash
-docker run -v `pwd`/output:/tool/output --rm -it docker-tool
+Run the container with
+```
+docker run --init -d indprinciples/lean-auto-artifact tail -f /dev/null
 ```
 
-The command above starts the docker container and places you in a bash environment, where you can inspect the source code or run the experiments. `-v` option will mount `output` folder in your current directory to the corresponding folder within the container where the evaluation results will be stored. This will allow you to view the generated output even after the container has stopped running. `--rm` is an optional flag that creates a disposable container that will be deleted upon exit.
+This command starts a docker container and leaves the container running in the background. Docker will assign a random name to the container, which you can view using ``docker container list``. Due to unknown issues, there could be up to around 80 zombie solver processes per Lean4 process at certain points during the evaluation of `lean-auto + CVC5`, `lean-auto + Z3` and `lean-auto + Zipperposition`. The ``--init`` option makes sure that these zombie processes are properly reaped when the Lean4 process exits.
 
-To run all the experiments (should take up to 8 hours), use:
-
-```bash
-./evaluate.sh 
+To attach to the container, use
+```
+docker exec -it <container_name> bash
 ```
 
-The evaluation script has the following additional options:
-* `--smoke-test` option allows you to detect any technical difficulties for the smoke-test phase (should take up to 5 minutes)
-* `--brief` option allows you to run the subset of experiments, namely Tables 1 & 4 of the paper (should take up to an hour)
+This command attaches to `<container_name>` and places you in a bash environment, where you can inspect the source code or run the experiments. To run the full experiment, use
+```
+/home/test_scripts/all_experiments.sh <n_procs> /home/lean_hammertest_lw
+```
+where `<n_procs>` is the number of Lean4 processes to run in parallel.
 
-If finished successfully, the evaluation script should print:
+To run a subset of the experiments, use
+```
+/home/test_scripts/all_experiments.sh <n_procs> /home/lean_hammertest_lw <n_mods>
+```
+This will run evaluation on `<n_mods>` randomly selected modules from the ``5518`` Mathlib4 modules that are used in the full experiment.
+
+To detect any technical difficulties during the smoke test phase, use
+```
+/home/test_scripts/all_experiments.sh <n_procs> /home/lean_hammertest_lw 1
+```
+
+If finished successfully, the evaluation script should print
 
 ```
-All experiments were successful.
+Experiment starts: <timestamp>
+...
+Result Analysis done: <timestamp>
 ```
 
-You can exit the container by typing `exit`. Output files generated by the evaluation script (logs, tables, plots, etc.) remain available in `$PWD/output`. Upon finishing your review, you can remove the image from the Docker environment using:
-```
-docker rmi docker-tool
-```
+The result of the experiments are located in `/home/lean_hammertest_lw/allResults`, and the analysis outputs are located in `/home/result_analysis`. You can use ``docker cp <container_name>:<path> <host_path>`` to copy files from the container to the host machine.
 
-
-## Functional badge
-
-If you claim a functional badge for the artifact:
-
-* Document which claims or results of the paper can be replicated with the artifact and how, including how to run the experiments and how to read and interpret the output. To simplify the reviewing process, we recommend providing evaluation scripts (where applicable).
-* Document which claims or results of the paper cannot be replicated and why.
-* Explain how the correctness of the artifact (i.e. the presented tool/method) was tested.
-* If possible, include log files reporting the results that were presented in the paper, and point to their location in the artifact.
-* If possible, include source code within your artifact, and point the reviewer to the parts of the source code that are most relevant to the submitted paper.
+You can exit the container by typing `exit`. After exiting the container, you can remove the container using ``docker rm <container_name>``. Note that you'll need ``docker container list -a`` to view the names of exited containers.
 
 
 ## Reusable badge
+* Replication of results of the paper: By running the full experiment, you will be able to reproduce the results in the `Experiments` section of the paper. The script `test_scripts/all_experiments.sh` runs the experiments and calls the analysis script `result_analysis/cumultime.py`, which prints out the total number of theorems:
+  ```
+  Total: <num>
+  ```
+  the number of theorems solved and the average solving time for each solver (including VBSes):
+  ```
+  Solved by <solver_name>: <num> | Avg time : <time>
+  ```
+  and unique solves across `rfl`, `simp_all vbs`, `aesop vbs` and `lean-auto vbs`:
+  ```
+  Unique solves by <solver_name>: <num>
+  ```
+  The analysis script also outputs the `#Solved - Cumulative Time` plot and `#Solved - Time` plot (both are present in the `Experiments` section of the paper) in pdf format.
+* Correctness of the artifact: All existing tools and the `lean-auto + duper` configuration generates Lean4 proofs, and these proofs are checked by the Lean4 kernel. For `lean-auto + z3/cvc5/zipperposition`, they do not generate Lean4 proofs. However, since the source code of solver-specific translations is short, and the translation procedures behave correctly on test cases in `lean-auto/Test/Test_Regression.lean`, we're relatively confident about their correctness.
+* Source code: `lean-auto` is open source on `https://github.com/leanprover-community/lean-auto`. The cloned `lean-auto` repo can be found in the `/home/lean-auto` directory of the artifact. The dockerfile and scripts used to build the docker image is on `https://github.com/PratherConid/lean-auto-artifact`.
+* Usage beyond the paper: In general, ``lean-auto`` can be used to automate or partly automate proofs of Lean4 theorems. To use ``lean-auto``, include ``lean-auto`` as a dependency in your Lean4 project.
 
-If you claim a reusable badge for the artifact:
+**TODO:** If you claim a reusable badge for the artifact:
 
 * Make sure your artifact has a license which allows repurposing and reuse, and is easy to use.
 * Make sure that all dependencies and used libraries are well-documented and up to date.
