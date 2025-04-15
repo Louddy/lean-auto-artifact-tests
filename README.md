@@ -47,7 +47,7 @@ The most relevant components of the artifact are inside the `/home` directory of
 
 First, load the docker image `lean-auto-artifact` from the .tar archive (docker may require `sudo` root privileges):
 ```bash
-docker load < lean-auto-artifact.tar
+docker load -i lean-auto-artifact.tar
 ```
 
 Run the container with
