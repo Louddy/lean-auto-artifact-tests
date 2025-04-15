@@ -2,7 +2,7 @@
 
 #133 Lean-auto: An Interface between Lean 4 and Automated Theorem Provers
 
-We claim the reusable badge for `lean-auto`.
+We claim the available and reusable badge for `lean-auto`.
 
 Note that the license file in this artifact is only for the test scripts, not for `lean-auto` and the dependencies of `lean-auto`. For `lean-auto` and its dependencies, their license files are in their individual folders in the docker image.
 
