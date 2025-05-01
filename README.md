@@ -45,17 +45,27 @@ The most relevant components of the artifact are inside the `/home` directory of
 
 ## Getting Started
 
-First, load the docker image `lean-auto-artifact` from the .tar archive (docker may require `sudo` root privileges):
-```bash
-docker load -i lean-auto-artifact.tar
-```
+First, load the docker image and run the container (docker may require `sudo` root privileges)
+* If your machine uses x86 architecture: Load the docker image `lean-auto-artifact` from the .tar archive :
+  ```bash
+  docker load -i lean-auto-artifact.tar
+  ```
 
-Run the container with
-```bash
-docker run --init -d lean-auto-artifact tail -f /dev/null
-```
+  Run the container with
+  ```bash
+  docker run --init -d lean-auto-artifact tail -f /dev/null
+  ```
+* If your machine uses arm architecture: Load the docker image `lean-auto-artifact-arm` from the .tar archive :
+  ```bash
+  docker load -i lean-auto-artifact-arm.tar
+  ```
 
-This command starts a docker container and leaves the container running in the background. Docker will assign a random name to the container, which you can view using ``docker container list``. Due to unknown issues, there could be up to around 80 zombie solver processes per Lean 4 process at certain points during the evaluation of `lean-auto + CVC5`, `lean-auto + Z3` and `lean-auto + Zipperposition`. The ``--init`` option makes sure that these zombie processes are properly reaped when the Lean 4 process exits.
+  Run the container with
+  ```bash
+  docker run --init -d lean-auto-artifact-arm tail -f /dev/null
+  ```
+
+This starts a docker container and leaves the container running in the background. Docker will assign a random name to the container, which you can view using ``docker container list``. Due to unknown issues, there could be up to around 80 zombie solver processes per Lean 4 process at certain points during the evaluation of `lean-auto + CVC5`, `lean-auto + Z3` and `lean-auto + Zipperposition`. The ``--init`` option makes sure that these zombie processes are properly reaped when the Lean 4 process exits.
 
 To attach to the container, use
 ```bash
