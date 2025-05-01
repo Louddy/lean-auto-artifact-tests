@@ -1,4 +1,4 @@
-# --platform=linux/arm64
+# --platform=linux/amd64
 FROM ubuntu:22.04
 
 ENV TZ=America/Los_Angeles
