@@ -55,3 +55,6 @@ RUN python3 -m venv result-analysis-env \
 
 # Copy Result Analysis Scripts
 COPY result_analysis /home/result_analysis
+
+# Add execution privilege
+RUN cd /home/test_scripts && chmod +x *
