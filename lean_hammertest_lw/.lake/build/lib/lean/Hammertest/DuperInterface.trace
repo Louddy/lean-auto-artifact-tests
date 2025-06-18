@@ -1,0 +1,38 @@
+{"log":
+ [{"message":
+   ".> LEAN_PATH=/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Cli/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/batteries/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Qq/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/aesop/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/importGraph/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/plausible/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/auto/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Duper/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/mathlib/.lake/build/lib/lean:/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/lib/lean /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0/bin/lean /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/Hammertest/DuperInterface.lean -R /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw -o /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/lib/lean/Hammertest/DuperInterface.olean -i /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/lib/lean/Hammertest/DuperInterface.ilean -c /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/ir/Hammertest/DuperInterface.c --plugin /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/batteries/.lake/build/lib/libBatteries.dylib --plugin /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/aesop/.lake/build/lib/libAesop.dylib --plugin /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/auto/.lake/build/lib/libAuto.dylib --plugin /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Duper/.lake/build/lib/libDuper.dylib --plugin /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0/lib/lean/libLake_shared.dylib --json",
+   "level": "trace"},
+  {"message":
+   "/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/Hammertest/DuperInterface.lean:6:42: unused variable `inhs`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+   "level": "warning"},
+  {"message":
+   "/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/Hammertest/DuperInterface.lean:11:43: unused variable `inhs`\nnote: this linter can be disabled with `set_option linter.unusedVariables false`",
+   "level": "warning"}],
+ "inputs":
+ [["Hammertest.DuperInterface:deps",
+   [["deps",
+     [["hammertest/Hammertest:extraDep", [["@hammertest:extraDep", "1723"]]],
+      ["import oleans",
+       [["Auto.Tactic:olean",
+         [["Auto.Tactic:deps", "15412045264092079594"],
+          ["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/auto/.lake/build/lib/lean/Auto/Tactic.olean",
+           "3491910605184809451"]]],
+        ["Duper.Tactic:olean",
+         [["Duper.Tactic:deps", "5959419201055996474"],
+          ["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Duper/.lake/build/lib/lean/Duper/Tactic.olean",
+           "7611137726554526082"]]]]]]],
+    ["libs",
+     [["import dynlibs",
+       [["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/auto/.lake/build/lib/libAuto.dylib",
+         "1129990516982620267"],
+        ["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/packages/Duper/.lake/build/lib/libDuper.dylib",
+         "12660401428196809780"]]],
+      ["package external libraries", "1723"],
+      ["module dynlibs", "1723"],
+      ["module plugins", "1723"]]]]],
+  ["Lean 4.20.0, commit 77cfc4d1a4f6ef6651792b781eaa6676b4f3f060",
+   "16311077432335102250"],
+  ["Module.leanArgs: #[]", "1723"],
+  ["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/Hammertest/DuperInterface.lean",
+   "2295001765659394330"]],
+ "depHash": "14491179515588870996"}

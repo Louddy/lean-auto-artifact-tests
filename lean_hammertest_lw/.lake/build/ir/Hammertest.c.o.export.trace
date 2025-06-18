@@ -1,0 +1,15 @@
+{"log":
+ [{"message":
+   ".> /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0/bin/clang -c -o /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/ir/Hammertest.c.o.export /Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/ir/Hammertest.c -I /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0/include -fstack-clash-protection -fwrapv -fvisibility=hidden -Wno-unused-command-line-argument --sysroot /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0 -nostdinc -isystem /Users/genereuxx/.elan/toolchains/leanprover--lean4---v4.20.0/include/clang -O3 -DNDEBUG -DLEAN_EXPORTING",
+   "level": "trace"}],
+ "inputs":
+ [["Hammertest:c",
+   [["/Users/genereuxx/Desktop/vscode_projects/lean-auto-artifact-tests/lean_hammertest_lw/.lake/build/ir/Hammertest.c",
+     "17510977995601841326"],
+    ["Lean 4.20.0, commit 77cfc4d1a4f6ef6651792b781eaa6676b4f3f060",
+     "16311077432335102250"]]],
+  ["Lean 4.20.0, commit 77cfc4d1a4f6ef6651792b781eaa6676b4f3f060",
+   "16311077432335102250"],
+  ["traceArgs: #[-O3, -DNDEBUG, -DLEAN_EXPORTING]", "13974588697068907418"],
+  ["arm64-apple-darwin23.6.0", "17616366027971700708"]],
+ "depHash": "6768261356990513471"}

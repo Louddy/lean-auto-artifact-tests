@@ -1,0 +1,1 @@
+{"version":3,"references":{"{\"c\":{\"n\":\"hello\",\"m\":\"Hammertest\"}}":{"usages":[],"definition":[5,4,5,9]},"{\"c\":{\"n\":\"String\",\"m\":\"Init.Prelude\"}}":{"usages":[[5,12,5,18,"hello",5,0,5,29,5,4,5,9]],"definition":null}},"module":"Hammertest"}
