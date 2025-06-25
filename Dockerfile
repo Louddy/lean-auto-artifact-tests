@@ -20,13 +20,13 @@ RUN python3 -m venv result-analysis-env \
   && pip install pandas numpy matplotlib
 
 # Install z3
-RUN wget https://github.com/Z3Prover/z3/releases/download/z3-4.13.4/z3-4.13.4-arm64-glibc-2.34.zip \
+RUN wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.13.4/z3-4.13.4-arm64-glibc-2.34.zip \
   && unzip -q z3-4.13.4-arm64-glibc-2.34.zip -d . \
   && rm z3-4.13.4-arm64-glibc-2.34.zip \
   && cp /home/z3-4.13.4-arm64-glibc-2.34/bin/z3 /usr/bin/z3
 
 # Install cvc5
-RUN wget https://github.com/cvc5/cvc5/releases/download/cvc5-1.2.0/cvc5-Linux-arm64-static.zip \
+RUN wget -q https://github.com/cvc5/cvc5/releases/download/cvc5-1.2.0/cvc5-Linux-arm64-static.zip \
   && unzip -q cvc5-Linux-arm64-static.zip -d . \
   && rm cvc5-Linux-arm64-static.zip \
   && cp /home/cvc5-Linux-arm64-static/bin/cvc5 /usr/bin/cvc5
@@ -36,7 +36,7 @@ COPY install_zipperpn_scripts /home/install_zipperpn_scripts
 RUN bash /home/install_zipperpn_scripts/install_zipperpn.sh
 
 # Install Elan
-RUN wget https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+RUN wget -q https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
   && bash elan-init.sh -y --default-toolchain=none \
   && rm elan-init.sh
 
