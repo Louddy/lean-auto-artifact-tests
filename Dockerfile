@@ -1,7 +1,6 @@
 FROM ubuntu:22.04
 
 ENV TZ=America/Los_Angeles
-SHELL ["/bin/bash", "-c"]
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -17,7 +16,7 @@ WORKDIR /home
 # Install Python Modules in a new virtual environment `result-analysis-env`
 # Use `source /home/result-analysis-env/bin/activate` to activate the environment
 RUN python3 -m venv result-analysis-env \
-  && source result-analysis-env/bin/activate \
+  && . result-analysis-env/bin/activate \
   && pip install pandas numpy matplotlib
 
 # Install z3
@@ -43,7 +42,7 @@ RUN wget https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
 
 # Build lean_hammertest_lw (most part of it would be building Mathlib)
 COPY lean_hammertest_lw /home/lean_hammertest_lw
-RUN source /root/.elan/env && cd /home/lean_hammertest_lw && lake build
+RUN . /root/.elan/env && cd /home/lean_hammertest_lw && lake build
 
 # Copy Test Scripts
 COPY test_scripts /home/test_scripts
