@@ -7,7 +7,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update \
     && apt-get install -y python3 python3-pip wget unzip build-essential \
        make cmake git bubblewrap libgmp3-dev pkg-config expect curl vim \
-       python3-venv \
+       python3-venv opam \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -32,8 +32,10 @@ RUN wget -q https://github.com/cvc5/cvc5/releases/download/cvc5-1.2.0/cvc5-Linux
   && cp /home/cvc5-Linux-arm64-static/bin/cvc5 /usr/bin/cvc5
 
 # Install zipperposition
-COPY install_zipperpn_scripts /home/install_zipperpn_scripts
-RUN bash /home/install_zipperpn_scripts/install_zipperpn.sh
+RUN opam init --compiler 4.14.0 --disable-sandboxing --no-setup \
+  && opam install -y zipperposition \
+  && opam pin -y -k git "https://github.com/sneeuwballen/zipperposition.git#050072e01d8539f9126993482b595e09f921f66a" \
+  && opam clean --all-switches --download-cache --logs --repo-cache
 
 # Install Elan
 RUN wget -q https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
