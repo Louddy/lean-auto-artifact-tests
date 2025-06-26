@@ -42,7 +42,7 @@ RUN wget -q https://raw.githubusercontent.com/leanprover/elan/master/elan-init.s
 
 # Build lean_hammertest_lw (most part of it would be building Mathlib)
 COPY lean_hammertest_lw /home/lean_hammertest_lw
-RUN . /root/.elan/env && cd /home/lean_hammertest_lw && lake build
+RUN . /root/.elan/env && cd /home/lean_hammertest_lw && lake exe cache get && lake build
 
 # Copy Test Scripts
 COPY test_scripts /home/test_scripts
