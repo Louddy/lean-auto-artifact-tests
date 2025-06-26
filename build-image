@@ -1,0 +1,15 @@
+#!/bin/bash
+
+TAG=${1:-latest}
+
+MACHINE="build-arm"
+REGION="eu-central-1"
+AWS_PROFILE="personal"
+REGISTRY="605134433106.dkr.ecr.eu-central-1.amazonaws.com"
+REPO="lean-auto-artifact"
+IMAGE="$REGISTRY/$REPO:$TAG"
+
+aws --profile "$AWS_PROFILE" ecr get-login-password --region "$REGION" | ssh "$MACHINE" sudo docker login --username AWS --password-stdin "$REGISTRY" && \
+ssh "$MACHINE" "rm -rf build-$REPO && mkdir build-$REPO" && \
+  git archive HEAD | zstdcat | ssh "$MACHINE" "zstdcat -d | tar -C build-$REPO -xf -" && \
+  ssh "$MACHINE" "cd build-$REPO && sudo docker build . -t $IMAGE --network host && sudo docker push $IMAGE"
