@@ -1,8 +1,8 @@
 #!/bin/bash
 
 MACHINE="${1:-lean-auto-artifact}"
-REGION="eu-central-1"
+REGION="us-east-1" # public ECR is always located here
 AWS_PROFILE="personal"
-REGISTRY="605134433106.dkr.ecr.eu-central-1.amazonaws.com"
+REGISTRY="public.ecr.aws"
 
-aws --profile "$AWS_PROFILE" ecr get-login-password --region "$REGION" | ssh "$MACHINE" sudo docker login --username AWS --password-stdin "$REGISTRY"
+aws --profile "$AWS_PROFILE" ecr-public get-login-password --region "$REGION" | ssh "$MACHINE" sudo docker login --username AWS --password-stdin "$REGISTRY"
