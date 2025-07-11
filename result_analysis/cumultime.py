@@ -17,11 +17,11 @@ def cumul_solving_time(df : dict[any, list], name: str, cumul : bool):
         'aesop' : 'lightblue',
         'aesopWithPremises' : 'blue',
         'aesop vbs' : 'darkblue',
-        'autoNative' : 'red',
-        'autoZ3' : 'magenta',
-        'autoCVC5' : 'pink',
-        'autoZipperpn' : 'purple',
-        'auto vbs' : 'darkred',
+        # 'autoNative' : 'red',
+        # 'autoZ3' : 'magenta',
+        # 'autoCVC5' : 'pink',
+        # 'autoZipperpn' : 'purple',
+        # 'auto vbs' : 'darkred',
         'overall vbs' : 'black'
     }
     label_map = {
@@ -32,11 +32,11 @@ def cumul_solving_time(df : dict[any, list], name: str, cumul : bool):
         'aesop' : 'Aesop - p',
         'aesopWithPremises' : 'Aesop',
         'aesop vbs' : 'Aesop VBS',
-        'autoNative' : 'Lean-auto + Duper',
-        'autoZ3' : 'Lean-auto + Z3',
-        'autoCVC5' : 'Lean-auto + CVC5',
-        'autoZipperpn' : 'Lean-auto + Zipper.',
-        'auto vbs' : 'Lean-auto VBS',
+        # 'autoNative' : 'Lean-auto + Duper',
+        # 'autoZ3' : 'Lean-auto + Z3',
+        # 'autoCVC5' : 'Lean-auto + CVC5',
+        # 'autoZipperpn' : 'Lean-auto + Zipper.',
+        # 'auto vbs' : 'Lean-auto VBS',
         'overall vbs' : 'Overall VBS'
     }
     if cumul:

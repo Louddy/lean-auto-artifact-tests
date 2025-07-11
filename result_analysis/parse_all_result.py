@@ -89,16 +89,16 @@ def default_categorical_virtual_bests_from_tactic_major(
     for tac in ["aesop", "aesopWithPremises"]:
         aesop_results[tac] = results[tac]
     aesop_vbest = virtual_best_from_tactic_major_filtered((names, aesop_results))
-    auto_results = {}
-    for tac in ["autoNative", "autoZ3", "autoCVC5", "autoZipperpn"]:
-        auto_results[tac] = results[tac]
-    auto_vbest = virtual_best_from_tactic_major_filtered((names, auto_results))
+    # auto_results = {}
+    # for tac in ["autoNative", "autoZ3", "autoCVC5", "autoZipperpn"]:
+    #     auto_results[tac] = results[tac]
+    # auto_vbest = virtual_best_from_tactic_major_filtered((names, auto_results))
 
     vbs = {}
     vbs['rfl'] = results['rfl']
     vbs['simp_all vbs'] = simp_vbest
     vbs['aesop vbs'] = aesop_vbest
-    vbs['auto vbs'] = auto_vbest
+    # vbs['auto vbs'] = auto_vbest
 
     return vbs
 

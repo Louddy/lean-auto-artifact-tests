@@ -15,6 +15,7 @@ def readETMHTEvaluateFilesCached (path : String) : CoreM (Array (Name × Array (
 def tactics (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) :=
   readETMHTEvaluateFilesCached (path ++ "/EvalTactics")
 
+/-
 def autoNativeAsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
   readETMHTEvaluateFilesCached (path ++ "/EvalAutoNativeAsTactic")
 
@@ -26,6 +27,7 @@ def autoCVC5AsTactic (path : String) : CoreM (Array (Name × Array (Result × Na
 
 def autoZipperpnAsTactic (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
   readETMHTEvaluateFilesCached (path ++ "/EvalAutoZipperpnAsTactic")
+-/
 
 /--
   Order of tactics:
@@ -36,11 +38,12 @@ def autoZipperpnAsTactic (path : String) : CoreM (Array (Name × Array (Result �
 -/
 def allResults (path : String) : CoreM (Array String × Array (Name × Array (Result × Nat × Nat))) := do
   let tt := Std.HashMap.ofList (← tactics path).toList
-  let an := Std.HashMap.ofList (← autoNativeAsTactic path).toList
-  let az := Std.HashMap.ofList (← autoZ3AsTactic path).toList
-  let ac := Std.HashMap.ofList (← autoCVC5AsTactic path).toList
-  let azp := Std.HashMap.ofList (← autoZipperpnAsTactic path).toList
-  let namesets := #[tt, an, az, ac, azp].map (fun hmap => Std.HashSet.ofArray (hmap.toArray.map Prod.fst))
+  -- let an := Std.HashMap.ofList (← autoNativeAsTactic path).toList
+  -- let az := Std.HashMap.ofList (← autoZ3AsTactic path).toList
+  -- let ac := Std.HashMap.ofList (← autoCVC5AsTactic path).toList
+  -- let azp := Std.HashMap.ofList (← autoZipperpnAsTactic path).toList
+  -- let namesets := #[tt, an, az, ac, azp].map (fun hmap => Std.HashSet.ofArray (hmap.toArray.map Prod.fst))
+  let namesets := #[tt].map (fun hmap => Std.HashSet.ofArray (hmap.toArray.map Prod.fst))
   let names := Array.foldl (fun a b => Auto.mergeHashSet a b) Std.HashSet.empty namesets
   let names := names.toArray
   let mut ret := #[]
@@ -48,6 +51,7 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
   let mR := (.exception missingException, 0, 0)
   for name in names do
     let ntt := tt.getD name #[mR, mR, mR, mR, mR, mR]
+    /-
     let #[_, nan] := an.getD name #[mR, mR]
       | throwError "{decl_name%} :: Unexpected result"
     let #[_, naz] := az.getD name #[mR, mR]
@@ -57,10 +61,12 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
     let #[_, nazp] := azp.getD name #[mR, mR]
       | throwError "{decl_name%} :: Unexpected result"
     ret := ret.push (name, ntt ++ #[nan, naz, nac, nazp])
+    -/
+    ret := ret.push (name, ntt)
   let tactics := #[
     "testUnknownConstant", "rfl", "simpAll",
     "simpAllWithPremises", "aesop", "aesopWithPremises",
-    "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
+    -- "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
   ]
   return (tactics, ret)
 
