@@ -1,5 +1,5 @@
-import Lean
 import Mathlib
+import Lean
 import Auto
 
 open Lean Meta EvalAuto
@@ -44,7 +44,7 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
   -- let azp := Std.HashMap.ofList (← autoZipperpnAsTactic path).toList
   -- let namesets := #[tt, an, az, ac, azp].map (fun hmap => Std.HashSet.ofArray (hmap.toArray.map Prod.fst))
   let namesets := #[tt].map (fun hmap => Std.HashSet.ofArray (hmap.toArray.map Prod.fst))
-  let names := Array.foldl (fun a b => Auto.mergeHashSet a b) Std.HashSet.empty namesets
+  let names := Array.foldl (fun a b => Auto.mergeHashSet a b) ∅ namesets
   let names := names.toArray
   let mut ret := #[]
   let missingException : Exception := .error .missing m!"Not found in result file"
@@ -74,8 +74,9 @@ def saveAllResults (path savepath : String) : CoreM Unit := do
   let fhandle ← IO.FS.Handle.mk savepath .write
   let (tactics, results) ← allResults path
   fhandle.putStrLn (String.intercalate " " tactics.toList)
-  for ((name, result), idx) in results.zipWithIndex do
+  for ((name, result), idx) in results.zipIdx do
     let resultStrs := result.map (fun (r, time, hb) => s!"{r.concise} {time} {hb}")
     fhandle.putStrLn s!"{idx} {resultStrs} {Name.uniqRepr name}"
+  fhandle.flush
 
 #eval saveAllResults "/home/lean_hammertest_lw" "/home/lean_hammertest_lw/allResults"
