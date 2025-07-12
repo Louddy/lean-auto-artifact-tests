@@ -115,9 +115,9 @@ def analyze_tactic_major_filtered(
     print('Total:', len(names))
     for tac in results:
         suc = successes(results[tac])
-        avg_time = sum([res[1] for res in suc]) / len(suc)
+        avg_time = 0 if len(suc) == 0 else sum([res[1] for res in suc]) / len(suc)
         print('Solved by ' + tac + ':', len(suc), '| Avg time :', avg_time)
-    print('Solved by vbest:', len(suc_vbest), '| Avg time :', sum([res[1] for res in suc_vbest]) / len(suc_vbest))
+    print('Solved by vbest:', len(suc_vbest), '| Avg time :', 0 if len(suc_vbest) == 0 else sum([res[1] for res in suc_vbest]) / len(suc_vbest))
     if not print_unique_solves:
         return
     for tac in results:
