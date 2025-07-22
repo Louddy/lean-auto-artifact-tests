@@ -69,7 +69,7 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
     -- "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
   ]
   return (tactics, ret)
-
+--set_option trace.auto.eval.printResult true in
 def saveAllResults (path savepath : String) : CoreM Unit := do
   let fhandle ← IO.FS.Handle.mk savepath .write
   let (tactics, results) ← allResults path
