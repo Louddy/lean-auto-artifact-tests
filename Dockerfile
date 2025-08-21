@@ -5,7 +5,8 @@ ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
-    && apt-get install -y python3 python3-pip wget unzip build-essential \
+    && apt-get install -y --no-install-recommends \
+       python3 python3-pip wget unzip build-essential \
        make cmake git bubblewrap libgmp3-dev pkg-config expect curl vim \
        python3-venv opam \
     && apt-get clean \
