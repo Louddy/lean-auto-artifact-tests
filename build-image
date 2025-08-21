@@ -5,8 +5,6 @@ DIR="$(dirname "$0")"
 TAG=${1:-latest}
 
 MACHINE="lean-auto-artifact"
-REGION="eu-central-1"
-AWS_PROFILE="personal"
 REGISTRY="public.ecr.aws/a9g8a7m1"
 REPO="lean-auto-artifact"
 IMAGE="$REGISTRY/$REPO:$TAG"
@@ -14,4 +12,4 @@ IMAGE="$REGISTRY/$REPO:$TAG"
 eval "$DIR/docker-login" "$MACHINE" && \
 ssh "$MACHINE" "rm -rf build-$REPO && mkdir build-$REPO" && \
   git archive HEAD | zstdcat | ssh "$MACHINE" "zstdcat -d | tar -C build-$REPO -xf -" && \
-  ssh "$MACHINE" "cd build-$REPO && sudo docker build . -t $IMAGE --network host && sudo docker push $IMAGE"
+  ssh "$MACHINE" "cd build-$REPO && sudo docker build . -t $IMAGE --network host"
