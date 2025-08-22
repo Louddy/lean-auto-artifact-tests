@@ -6,7 +6,7 @@ open Lean Meta EvalAuto
 
 def readETMHTEvaluateFilesCached (path : String) : CoreM (Array (Name × Array (Result × Nat × Nat))) := do
   if !(← System.FilePath.pathExists (path ++ "/gatheredResult")) then
-    gatherETMHTResult
+    gatherETMHTResultAllowNonRet
       { tactics := Inhabited.default, resultFolder := path,
         nonterminates := Inhabited.default,
         nprocs := Inhabited.default }
