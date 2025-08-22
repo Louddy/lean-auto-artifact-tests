@@ -43,15 +43,26 @@ RUN wget -q https://raw.githubusercontent.com/leanprover/elan/master/elan-init.s
   && bash elan-init.sh -y --default-toolchain=none \
   && rm elan-init.sh
 
-# Build lean_hammertest_lw (most part of it would be building Mathlib)
-COPY lean_hammertest_lw /home/lean_hammertest_lw
-RUN . /root/.elan/env && cd /home/lean_hammertest_lw && (lake exe cache get || true) && lake build
+# Build lean_hammertest_lw dependencies
+WORKDIR /home/lean_hammertest_lw
+COPY lean_hammertest_lw/lakefile.lean \
+  lean_hammertest_lw/lean-toolchain \
+  lean_hammertest_lw/lake-manifest.json \
+  ./
+RUN . /root/.elan/env \
+  && lake resolve-deps && (lake exe cache get || true) \
+  && lake build Mathlib Auto Duper
+
+# Build lean_hammertest_lw
+COPY lean_hammertest_lw/ ./
+RUN . /root/.elan/env && lake build
 
 # Copy Test Scripts
-COPY test_scripts /home/test_scripts
+WORKDIR /home
+COPY test_scripts test_scripts
 
 # Copy Result Analysis Scripts
-COPY result_analysis /home/result_analysis
+COPY result_analysis result_analysis
 
 # Add execution privilege
-RUN chmod +x /home/test_scripts/*
+RUN chmod +x test_scripts/*
