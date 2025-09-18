@@ -66,6 +66,9 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
   let tactics := #[
     "testUnknownConstant", "rfl", "simpAll",
     "simpAllWithPremises", "aesop", "aesopWithPremises",
+    "aesopPSafeNew", "aesopPSafeOld", "aesopPUnsafeNew",
+    "aesopPUnsafeOld", "SaturateAssNew", "SaturateAssOld",
+    "SaturateAesopNew", "SaturateAesopOld"
     -- "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
   ]
   return (tactics, ret)
