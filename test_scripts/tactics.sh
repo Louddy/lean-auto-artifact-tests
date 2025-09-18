@@ -26,7 +26,9 @@ set_option auto.testTactics.ensureAesop true
 #eval @id (Lean.CoreM Unit) do
   let mfilter ← Pseudo.randMathlibModules?All $filterchoice
   evalTacticsAtMathlibHumanTheorems
-    { tactics := #[.testUnknownConstant, .useRfl, .useSimpAll, .useSimpAllWithPremises, .useAesop 65536, .useAesopWithPremises 65536],
+    { tactics := #[.testUnknownConstant, .useRfl, .useSimpAll, .useSimpAllWithPremises, .useAesop 65536,
+                      .useAesopWithPremises 65536, .useAesopPSafeNew 65536, .useAesopPSafeOld 65536,
+                      .useAesopPUnsafeNew 65536, .useAesopPUnsafeOld 65536],
       resultFolder := \"./EvalTactics\",
       moduleFilter := mfilter,
       nonterminates := #[
@@ -36,6 +38,10 @@ set_option auto.testTactics.ensureAesop true
         (.useRfl, \`\`IntermediateField.extendScalars_inf),
         (.useAesop 65536, \`\`IntermediateField.extendScalars_inf),
         (.useAesopWithPremises 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useAesopPSafeNew 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useAesopPSafeOld 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useAesopPUnsafeNew 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useAesopPUnsafeOld 65536, \`\`IntermediateField.extendScalars_inf),
         (.useRfl, \`\`Field.Emb.Cardinal.succEquiv_coherence),
         (.useAesop 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),
         (.useAesopWithPremises 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),
