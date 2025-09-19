@@ -43,7 +43,7 @@ set_option auto.testTactics.ensureAesop true
         (.useAesopPSafeOld 65536, \`\`IntermediateField.extendScalars_inf),
         (.useAesopPUnsafeNew 65536, \`\`IntermediateField.extendScalars_inf),
         (.useAesopPUnsafeOld 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useSaturateNewDAesop65536, \`\`IntermediateField.extendScalars_inf),
+        (.useSaturateNewDAesop 65536, \`\`IntermediateField.extendScalars_inf),
         (.useSaturateOldDAesop 65536, \`\`IntermediateField.extendScalars_inf),
         (.useSaturateNewDAss 65536, \`\`IntermediateField.extendScalars_inf),
         (.useSaturateOldDAss 65536, \`\`IntermediateField.extendScalars_inf),
