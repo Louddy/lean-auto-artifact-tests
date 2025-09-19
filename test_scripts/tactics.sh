@@ -28,7 +28,8 @@ set_option auto.testTactics.ensureAesop true
   evalTacticsAtMathlibHumanTheorems
     { tactics := #[.testUnknownConstant, .useRfl, .useSimpAll, .useSimpAllWithPremises, .useAesop 65536,
                       .useAesopWithPremises 65536, .useAesopPSafeNew 65536, .useAesopPSafeOld 65536,
-                      .useAesopPUnsafeNew 65536, .useAesopPUnsafeOld 65536],
+                      .useAesopPUnsafeNew 65536, .useAesopPUnsafeOld 65536, .useSaturateNewDAesop 65536,
+                      .useSaturateOldDAesop 65536, .useSaturateNewDAss 65536, .useSaturateOldDAss 65536,],            
       resultFolder := \"./EvalTactics\",
       moduleFilter := mfilter,
       nonterminates := #[
@@ -42,6 +43,10 @@ set_option auto.testTactics.ensureAesop true
         (.useAesopPSafeOld 65536, \`\`IntermediateField.extendScalars_inf),
         (.useAesopPUnsafeNew 65536, \`\`IntermediateField.extendScalars_inf),
         (.useAesopPUnsafeOld 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useSaturateNewDAesop65536, \`\`IntermediateField.extendScalars_inf),
+        (.useSaturateOldDAesop 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useSaturateNewDAss 65536, \`\`IntermediateField.extendScalars_inf),
+        (.useSaturateOldDAss 65536, \`\`IntermediateField.extendScalars_inf),
         (.useRfl, \`\`Field.Emb.Cardinal.succEquiv_coherence),
         (.useAesop 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),
         (.useAesopWithPremises 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),

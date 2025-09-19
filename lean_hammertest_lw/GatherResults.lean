@@ -68,8 +68,8 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
     "simpAllWithPremises", "aesop", "aesopWithPremises",
     "aesopPSafeNew", "aesopPSafeOld", "aesopPUnsafeNew",
     "aesopPUnsafeOld",
-    -- "SaturateAssNew", "SaturateAssOld",
-    -- "SaturateAesopNew", "SaturateAesopOld"
+    "saturateNewDAesop", "saturateOldDAesop",
+    "saturateNewDAss", "saturateOldDAss"
     -- "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
   ]
   return (tactics, ret)
