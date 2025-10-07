@@ -64,12 +64,20 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
     -/
     ret := ret.push (name, ntt)
   let tactics := #[
-    "testUnknownConstant", "rfl", "simpAll",
-    "simpAllWithPremises", "aesop", "aesopWithPremises",
-    "aesopPSafeNew", "aesopPSafeOld", "aesopPUnsafeNew",
+    "testUnknownConstant",
+    "rfl",
+    "simpAll",
+    "simpAllWithPremises",
+    -- "aesop",
+    "aesopWithPremises",
+    -- "aesopPSafeNew",
+    -- "aesopPSafeOld",
+    "aesopPUnsafeNew",
     "aesopPUnsafeOld",
-    "saturateNewDAesop", "saturateOldDAesop",
-    "saturateNewDAss", "saturateOldDAss"
+    -- "saturateNewDAesop",
+    -- "saturateOldDAesop",
+    "saturateNewDAss",
+    "saturateOldDAss"
     -- "autoNative", "autoZ3", "autoCVC5", "autoZipperpn"
   ]
   return (tactics, ret)

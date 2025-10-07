@@ -25,31 +25,33 @@ open EvalAuto
 set_option auto.testTactics.ensureAesop true
 #eval @id (Lean.CoreM Unit) do
   let mfilter ← Pseudo.randMathlibModules?All $filterchoice
+  let tactics := #[
+    .testUnknownConstant,
+    .useRfl,
+    .useSimpAll,
+    .useSimpAllWithPremises,
+    -- .useAesop 65536,
+    .useAesopWithPremises 65536,
+    -- .useAesopPSafeNew 65536,
+    -- .useAesopPSafeOld 65536,
+    .useAesopPUnsafeNew 65536,
+    .useAesopPUnsafeOld 65536,
+    -- .useSaturateNewDAesop 65536,
+    -- .useSaturateOldDAesop 65536,
+    .useSaturateNewDAss 65536,
+    .useSaturateOldDAss 65536,
+  ]
   evalTacticsAtMathlibHumanTheorems
-    { tactics := #[.testUnknownConstant, .useRfl, .useSimpAll, .useSimpAllWithPremises, .useAesop 65536,
-                      .useAesopWithPremises 65536, .useAesopPSafeNew 65536, .useAesopPSafeOld 65536,
-                      .useAesopPUnsafeNew 65536, .useAesopPUnsafeOld 65536, .useSaturateNewDAesop 65536,
-                      .useSaturateOldDAesop 65536, .useSaturateNewDAss 65536, .useSaturateOldDAss 65536,],            
+    { tactics
       resultFolder := \"./EvalTactics\",
       moduleFilter := mfilter,
-      nonterminates := #[
-        (.useRfl, \`\`IntermediateField.extendScalars_top),
-        (.useAesop 65536, \`\`IntermediateField.extendScalars_top),
-        (.useAesopWithPremises 65536, \`\`IntermediateField.extendScalars_top),
-        (.useRfl, \`\`IntermediateField.extendScalars_inf),
-        (.useAesop 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useAesopWithPremises 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useAesopPSafeNew 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useAesopPSafeOld 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useAesopPUnsafeNew 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useAesopPUnsafeOld 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useSaturateNewDAesop 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useSaturateOldDAesop 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useSaturateNewDAss 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useSaturateOldDAss 65536, \`\`IntermediateField.extendScalars_inf),
-        (.useRfl, \`\`Field.Emb.Cardinal.succEquiv_coherence),
-        (.useAesop 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),
-        (.useAesopWithPremises 65536, \`\`Field.Emb.Cardinal.succEquiv_coherence),
-        (.useAesop 65536, \`\`UniformConvergenceCLM.uniformSpace_eq),
-        (.useAesopWithPremises 65536, \`\`UniformConvergenceCLM.uniformSpace_eq)
-      ], nprocs := $1 }" | lake env lean --stdin
+      nonterminates :=
+        let decls := #[
+          \`\`IntermediateField.extendScalars_top,
+          \`\`IntermediateField.extendScalars_inf,
+          \`\`Field.Emb.Cardinal.succEquiv_coherence,
+          \`\`UniformConvergenceCLM.uniformSpace_eq,
+        ]
+        tactics.flatMap fun tac => decls.map fun decl => (tac, decl),
+      nprocs := $1
+    }" | lake env lean --stdin
