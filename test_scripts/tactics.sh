@@ -36,10 +36,10 @@ set_option auto.testTactics.ensureAesop true
     -- .useAesopPSafeOld 65536,
     .useAesopPUnsafeNew 65536,
     .useAesopPUnsafeOld 65536,
-    -- .useSaturateNewDAesop 65536,
-    -- .useSaturateOldDAesop 65536,
-    .useSaturateNewDAss 65536,
-    .useSaturateOldDAss 65536,
+    -- .useSaturateNewDAesop,
+    -- .useSaturateOldDAesop,
+    .useSaturateNewDAss,
+    .useSaturateOldDAss,
   ]
   evalTacticsAtMathlibHumanTheorems
     { tactics

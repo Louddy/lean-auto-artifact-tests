@@ -25,7 +25,7 @@
    "type": "git",
    "subDir": null,
    "scope": "",
-   "rev": "81dadbc917ffb509989812809c83e9b4abfb8b9b",
+   "rev": "af6b1b2fdc7b16f9e7560bfbe36e5c04e98a1055",
    "name": "auto",
    "manifestFile": "lake-manifest.json",
    "inputRev": "unify-tests",
