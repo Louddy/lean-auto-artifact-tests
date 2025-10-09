@@ -68,7 +68,7 @@ def allResults (path : String) : CoreM (Array String × Array (Name × Array (Re
     "rfl",
     "simpAll",
     "simpAllWithPremises",
-    -- "aesop",
+    "aesop",
     "aesopWithPremises",
     -- "aesopPSafeNew",
     -- "aesopPSafeOld",

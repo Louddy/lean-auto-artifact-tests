@@ -30,7 +30,7 @@ set_option auto.testTactics.ensureAesop true
     .useRfl,
     .useSimpAll,
     .useSimpAllWithPremises,
-    -- .useAesop 65536,
+    .useAesop 65536,
     .useAesopWithPremises 65536,
     -- .useAesopPSafeNew 65536,
     -- .useAesopPSafeOld 65536,
