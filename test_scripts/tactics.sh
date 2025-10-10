@@ -54,4 +54,4 @@ set_option auto.testTactics.ensureAesop true
         ]
         tactics.flatMap fun tac => decls.map fun decl => (tac, decl),
       nprocs := $1
-    }" | lake env lean --stdin
+    }" | lake env lean -j1 --stdin
