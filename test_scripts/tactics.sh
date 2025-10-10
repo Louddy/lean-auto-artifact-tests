@@ -43,6 +43,8 @@ set_option auto.testTactics.ensureAesop true
   ]
   evalTacticsAtMathlibHumanTheorems
     { tactics
+      maxHeartbeats := 10000000000000000000, -- effectively unlimited
+      timeoutMs := 10 * 1000,                -- 10s
       resultFolder := \"./EvalTactics\",
       moduleFilter := mfilter,
       nonterminates :=
