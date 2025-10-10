@@ -1,17 +1,17 @@
 #!/bin/bash
-# This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
 
-decim_re='^[1-9][0-9]*$'
-if ! ( [ "$#" -eq 2 ] || ( [ "$#" -eq 3 ] && [[ $3 =~ $decim_re ]] ) ) || ! [[ $1 =~ $decim_re ]]; then
+# --- Parse required arguments ---
+if [ "$#" -lt 2 ]; then
   echo "Illegal number of parameters"
-  echo "Usage: ./<script_name> <number_of_processors> <path_to_hammertest_repo> [<number_of_mathlib_modules_to_test>]"
-  exit
+  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> <nMod> <time> <mem>"
+  exit 1
 fi
 
-filterchoice='.none'
-if [ "$#" -eq 3 ]; then
-  filterchoice="(.some $3)"
-fi
+num_procs=$1
+repo_path=$2
+nMod=$3
+time=$4
+mem=$5
 
 cd $2
 
@@ -24,7 +24,7 @@ open EvalAuto
 
 set_option auto.testTactics.ensureAesop true
 #eval @id (Lean.CoreM Unit) do
-  let mfilter ← Pseudo.randMathlibModules?All $filterchoice
+  let mfilter ← Pseudo.randMathlibModules?All $nMod
   let tactics := #[
     .testUnknownConstant,
     .useRfl,
@@ -45,8 +45,8 @@ set_option auto.testTactics.ensureAesop true
     { tactics
       maxHeartbeats := 10000000000000000000, -- effectively unlimited
       timeoutMs := 10 * 1000,                -- 10s
-      resultFolder := \"./EvalTactics\",
-      moduleFilter := mfilter,
+      resultFolder := \"./EvalTactics\"
+      moduleFilter := mfilter
       nonterminates :=
         let decls := #[
           \`\`IntermediateField.extendScalars_top,
@@ -54,6 +54,8 @@ set_option auto.testTactics.ensureAesop true
           \`\`Field.Emb.Cardinal.succEquiv_coherence,
           \`\`UniformConvergenceCLM.uniformSpace_eq,
         ]
-        tactics.flatMap fun tac => decls.map fun decl => (tac, decl),
-      nprocs := $1
+        tactics.flatMap fun tac => decls.map fun decl => (tac, decl)
+      nprocs := $num_procs
+      memoryLimitKb := $mem
+      timeLimitS := $time
     }" | lake env lean -j1 --stdin
