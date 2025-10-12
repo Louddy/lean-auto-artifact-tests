@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       git wget curl python3 python3-pip python3-venv \
+       git wget curl python3 python3-pip python3-venv xz-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
