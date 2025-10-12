@@ -52,16 +52,8 @@ source /root/.elan/env
 rm -rf $repo_path/Eval*
 rm -f $repo_path/allResults
 
-# Run evaluation using various tools
+# Run evaluation
 printf "Experiment starts: %(%s)T\n"
-#/home/test_scripts/autoCVC5.sh $@
-#printf "autoCVC5.sh done: %(%s)T\n"
-#/home/test_scripts/autoNative.sh $@
-#printf "autoNative.sh done: %(%s)T\n"
-#/home/test_scripts/autoZ3.sh $@
-#printf "autoZ3.sh done: %(%s)T\n"
-#/home/test_scripts/autoZipperpn.sh $@
-#printf "autoZipperpn.sh done: %(%s)T\n"
 /home/test_scripts/tactics.sh $num_procs $repo_path "${flags[nMod]}" "${flags[time]}" "${flags[mem]}" "${flags[threads]}"
 printf "tactics.sh done: %(%s)T\n"
 

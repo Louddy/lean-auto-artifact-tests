@@ -1,6 +1,3 @@
-import Auto
-import Hammertest.DuperInterface
-import Hammertest.DuperInterfaceRebindRaw
+import Mathlib
+import Auto.EvaluateAuto.TestTactics
 import Hammertest.PseudoRandomModules
-
-def hello : String := "world"

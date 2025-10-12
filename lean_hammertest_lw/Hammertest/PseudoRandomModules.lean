@@ -1,8 +1,6 @@
-import Lean
-import Auto
-import Mathlib
+import Auto.EvaluateAuto.EnvAnalysis
 
-open Lean Meta EvalAuto
+open Lean EvalAuto
 
 def Pseudo.randMathlibModules (num : Nat) : CoreM (Std.HashSet Name) := do
   let modules ← mathlibModules
