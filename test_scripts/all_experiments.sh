@@ -3,7 +3,7 @@
 # --- Parse required arguments ---
 if [ "$#" -lt 2 ]; then
   echo "Illegal number of parameters"
-  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> [--nMod N] [--time N] [--mem N]"
+  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> [--nMod N] [--time N] [--mem N] [--threads N]"
   exit 1
 fi
 
@@ -17,6 +17,7 @@ flags=(
   [nMod]=".none"
   [time]=".none"
   [mem]=".none"
+  [threads]="20"
 )
 
 # --- Regex for positive integers ---
@@ -25,7 +26,7 @@ decim_re='^[1-9][0-9]*$'
 # --- Parse optional flags ---
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --nMod|--time|--mem)
+    --nMod|--time|--mem|--threads)
       flag_name="${1/--/}"  # remove leading --
       if [[ -n $2 && $2 =~ $decim_re ]]; then
         flags[$flag_name]="(.some $2)"
@@ -61,7 +62,7 @@ printf "Experiment starts: %(%s)T\n"
 #printf "autoZ3.sh done: %(%s)T\n"
 #/home/test_scripts/autoZipperpn.sh $@
 #printf "autoZipperpn.sh done: %(%s)T\n"
-/home/test_scripts/tactics.sh $num_procs $repo_path "${flags[nMod]}" "${flags[time]}" "${flags[mem]}"
+/home/test_scripts/tactics.sh $num_procs $repo_path "${flags[nMod]}" "${flags[time]}" "${flags[mem]}" "${flags[threads]}"
 printf "tactics.sh done: %(%s)T\n"
 
 # Gather results
