@@ -1,6 +1,5 @@
-import Mathlib
-import Lean
-import Auto
+import Auto.EvaluateAuto.TestTactics
+import Auto.Lib.Containers
 
 open Lean Meta EvalAuto
 

@@ -23,6 +23,9 @@ RUN wget -q https://raw.githubusercontent.com/leanprover/elan/master/elan-init.s
   && bash elan-init.sh -y --default-toolchain=none \
   && rm elan-init.sh
 
+# Install Lean (redundant, but better caching)
+RUN /root/.elan/bin/elan toolchain install 4.20.0
+
 # Build lean_hammertest_lw dependencies
 WORKDIR /home/lean_hammertest_lw
 COPY lean_hammertest_lw/lakefile.lean \
