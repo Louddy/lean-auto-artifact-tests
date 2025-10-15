@@ -10,7 +10,7 @@ fi
 num_procs="$1"
 repo_path="$2"
 nMod="$3"
-static= "4"
+static="$4"
 timeM="$5"
 timeT="$6"
 mem="$7"
