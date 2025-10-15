@@ -3,7 +3,8 @@
 # --- Parse required arguments ---
 if [ "$#" -lt 2 ]; then
   echo "Illegal number of parameters"
-  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> [--nMod N] [--time N] [--mem N] [--threads N]"
+  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> [--nMod N] [--static] [--timeM N]
+    [--timeT N] [--mem N] [--threads N]"
   exit 1
 fi
 
@@ -15,7 +16,9 @@ shift 2  # remove required args
 declare -A flags
 flags=(
   [nMod]=".none"
-  [time]=".none"
+  [static]="false"
+  [timeM]=".none"
+  [timeT]="10000"
   [mem]=".none"
   [threads]="20"
 )
@@ -26,7 +29,7 @@ decim_re='^[1-9][0-9]*$'
 # --- Parse optional flags ---
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --nMod|--time|--mem|--threads)
+    --nMod|--timeM|--timeT|--mem)
       flag_name="${1/--/}"  # remove leading --
       if [[ -n $2 && $2 =~ $decim_re ]]; then
         flags[$flag_name]="(.some $2)"
@@ -35,6 +38,20 @@ while [[ $# -gt 0 ]]; do
         echo "Error: $1 requires a positive integer"
         exit 1
       fi
+      ;;
+    --threads)
+      flag_name="${1/--/}"  # remove leading --
+      if [[ -n $2 && $2 =~ $decim_re ]]; then
+        flags[$flag_name]=$2
+        shift
+      else
+        echo "Error: $1 requires a positive integer"
+        exit 1
+      fi
+      ;;
+    --static)
+      flag_name="${1/--/}"
+      flags[$flag_name]=true
       ;;
     *)
       echo "Unknown option: $1"
@@ -54,7 +71,7 @@ rm -f $repo_path/allResults
 
 # Run evaluation
 printf "Experiment starts: %(%s)T\n"
-/home/test_scripts/tactics.sh $num_procs $repo_path "${flags[nMod]}" "${flags[time]}" "${flags[mem]}" "${flags[threads]}"
+/home/test_scripts/tactics.sh $num_procs $repo_path "${flags[nMod]}" "${flags[static]}" "${flags[timeM]}" "${flags[timeT]}" "${flags[mem]}" "${flags[threads]}"
 printf "tactics.sh done: %(%s)T\n"
 
 # Gather results
