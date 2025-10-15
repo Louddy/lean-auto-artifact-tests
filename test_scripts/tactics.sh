@@ -47,7 +47,7 @@ set_option auto.testTactics.ensureAesop true
   evalTacticsAtMathlibHumanTheorems
     { tactics
       maxHeartbeats := 10000000000000000000  -- effectively unlimited
-      timeout?      := $timeT         -- 10s
+      timeout?      := $timeT * 1000        -- 10s
       resultFolder := \"./EvalTactics\"
       moduleFilter := mfilter
       nonterminates :=

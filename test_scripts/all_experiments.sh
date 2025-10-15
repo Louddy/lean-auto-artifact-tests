@@ -18,7 +18,7 @@ flags=(
   [nMod]=".none"
   [static]="false"
   [timeM]=".none"
-  [timeT]="10000"
+  [timeT]=".none"
   [mem]=".none"
   [threads]="20"
 )
