@@ -28,18 +28,8 @@ set_option auto.testTactics.ensureAesop true
   let tactics := #[
     .testUnknownConstant,
     .useRfl,
-    .useSimpAll,
-    .useSimpAllWithPremises,
-    .useAesop 65536,
-    .useAesopWithPremises 65536,
-    -- .useAesopPSafeNew 65536,
-    -- .useAesopPSafeOld 65536,
-    .useAesopPUnsafeNew 65536,
-    .useAesopPUnsafeOld 65536,
-    -- .useSaturateNewDAesop 65536,
-    -- .useSaturateOldDAesop 65536,
-    .useSaturateNewDAss 65536,
-    .useSaturateOldDAss 65536,
+    .useSaturateNew 65536,
+    .useSaturateOld 65536,
   ]
   evalTacticsAtMathlibHumanTheorems
     { tactics
