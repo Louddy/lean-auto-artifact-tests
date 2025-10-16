@@ -1,19 +1,55 @@
 #!/bin/bash
-# This script is only compatible with Mathlib4 29f9a66d622d9bab7f419120e22bb0d2598676ab, due to 'nonterminates'
 
-decim_re='^[1-9][0-9]*$'
-if ! ( [ "$#" -eq 2 ] || ( [ "$#" -eq 3 ] && [[ $3 =~ $decim_re ]] ) ) || ! [[ $1 =~ $decim_re ]]; then
+# --- Parse required arguments ---
+if [ "$#" -lt 2 ]; then
   echo "Illegal number of parameters"
-  echo "Usage: ./<script_name> <number_of_processors> <path_to_hammertest_repo> [<number_of_mathlib_modules_to_test>]"
-  exit
+  echo "Usage: $0 <number_of_processors> <path_to_hammertest_repo> [--nMod N] [--time N] [--mem N]"
+  exit 1
 fi
+
+num_procs=$1
+repo_path=$2
+shift 2  # remove required args
+
+# --- Default values ---
+declare -A flags
+flags=(
+  [nMod]=".none"
+  [time]=".none"
+  [mem]=".none"
+)
+
+# --- Regex for positive integers ---
+decim_re='^[1-9][0-9]*$'
+
+# --- Parse optional flags ---
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --nMod|--time|--mem)
+      flag_name="${1/--/}"  # remove leading --
+      if [[ -n $2 && $2 =~ $decim_re ]]; then
+        flags[$flag_name]="(.some $2)"
+        shift
+      else
+        echo "Error: $1 requires a positive integer"
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Unknown option: $1"
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 
 # Set up environment for Lean
 source /root/.elan/env
 
 # Remove results of previous experiments (if exists)
-rm -rf $2/Eval*
-rm -f $2/allResults
+rm -rf $repo_path/Eval*
+rm -f $repo_path/allResults
 
 # Run evaluation using various tools
 printf "Experiment starts: %(%s)T\n"
@@ -25,16 +61,16 @@ printf "Experiment starts: %(%s)T\n"
 #printf "autoZ3.sh done: %(%s)T\n"
 #/home/test_scripts/autoZipperpn.sh $@
 #printf "autoZipperpn.sh done: %(%s)T\n"
-/home/test_scripts/tactics.sh $@
+/home/test_scripts/tacticsOpt.sh $num_procs $repo_path "${flags[nMod]}" "${flags[time]}" "${flags[mem]}"
 printf "tactics.sh done: %(%s)T\n"
 
 # Gather results
-cd $2 && lake env lean GatherResults.lean
+cd $repo_path && lake env lean GatherResults.lean
 printf "GatherResults.lean done: %(%s)T\n"
 echo
 
 # Analyze experimental results
 echo "Analyzing results ..."
 source /home/result-analysis-env/bin/activate
-cd /home/result_analysis && python3 cumultime.py $2/allResults
+cd /home/result_analysis && python3 cumultime.py $repo_path/allResults
 printf "Result Analysis done: %(%s)T\n"
